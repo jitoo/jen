@@ -1,21 +1,13 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
   name: test
+  labels:
+    app: test
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: test
-  template:
-    metadata:
-      name: test
-      labels:
-        app: test
-    spec:
-      containers:
-        - name: nginx
-          image: rapa.iptime.org:5000/nginx:latest
+  containers:
+    - name: test
+      image: rapa.iptime.org:5000/nginx:latest
 ---
 apiVersion: v1
 kind: Service
@@ -25,7 +17,7 @@ spec:
   selector:
     app: test
   ports:
-    - name: test
+    - name: http
       protocol: TCP
       port: 80
       targetPort: 80
