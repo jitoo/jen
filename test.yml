@@ -1,11 +1,21 @@
-apiVersion: v1
-kind: Pod 
-metadata:  
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: test
-spec:   
-  containers:
-    - name: test-container
-      image: rapa.iptime.org:5000/nginx:latest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      name: test
+      labels:
+        app: test
+    spec:
+      containers:
+        - name: nginx
+          image: rapa.iptime.org:5000/nginx:latest
 ---
 apiVersion: v1
 kind: Service
